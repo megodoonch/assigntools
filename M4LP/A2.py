@@ -18,7 +18,7 @@ def run_cmd(cmd, v=False):
             break
     return out_str
 
-def show_tableau(filename, tableau_css='/content/LangPro/css/tableau.css'):
+def testfun(filename, tableau_css='/content/LangPro/css/tableau.css'):
     """ Intended for google colab use
     """
     #import IPython

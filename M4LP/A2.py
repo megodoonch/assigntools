@@ -137,8 +137,8 @@ class LangPro:
 def show_tableau(filename, tableau_css='/content/LangPro/css/tableau.css'):
     """ Intended for google colab use
     """
-    import IPython
-    import google.colab.output
+    #import IPython
+    #import google.colab.output
     if not op.isfile(tableau_css):
         raise RuntimeError(f"File {tableau_css} cannot be found")
     google.colab.output._publish.css(open(tableau_css).read())

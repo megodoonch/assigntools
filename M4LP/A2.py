@@ -134,7 +134,7 @@ class LangPro:
         mode2html = { (m, yn):op.join(self.dir, f'xml/tableau-{pid}-{yn}-{m}.html') for m, yn in modes }
         return out, mode2html
 
-def show_tableu(filename, tableau_css='/content/LangPro/css/tableau.css'):
+def show_tableau(filename, tableau_css='/content/LangPro/css/tableau.css'):
     """ Intended for google colab use
     """
     import IPython

@@ -1,3 +1,6 @@
+import subprocess
+from os import path as op
+
 def run_cmd(cmd, v=False):
     """ run cmd and print stdout lines while the command is running if v is True.
         Return the stdout as a string
@@ -132,6 +135,8 @@ class LangPro:
         return out, mode2html
 
 def show_tableu(filename, tableau_css='/content/LangPro/css/tableau.css'):
+    """ Intended for google colab use
+    """
     import IPython
     import google.colab.output
     if not op.isfile(tableau_css):

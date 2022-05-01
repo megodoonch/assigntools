@@ -18,6 +18,16 @@ def run_cmd(cmd, v=False):
             break
     return out_str
 
+def show_tableau(filename, tableau_css='/content/LangPro/css/tableau.css'):
+    """ Intended for google colab use
+    """
+    #import IPython
+    #import google.colab.output
+    if not op.isfile(tableau_css):
+        raise RuntimeError(f"File {tableau_css} cannot be found")
+    google.colab.output._publish.css(open(tableau_css).read())
+    return IPython.display.HTML(filename=filename)
+
 ###############################################################
 # Auxiliary functions for sanity checking parameters
 def check_align_param(align):
@@ -133,13 +143,3 @@ class LangPro:
         modes = [ (m, yn) for m in align_modes for yn in ['yes', 'no'] ]
         mode2html = { (m, yn):op.join(self.dir, f'xml/tableau-{pid}-{yn}-{m}.html') for m, yn in modes }
         return out, mode2html
-
-def show_tableau(filename, tableau_css='/content/LangPro/css/tableau.css'):
-    """ Intended for google colab use
-    """
-    #import IPython
-    #import google.colab.output
-    if not op.isfile(tableau_css):
-        raise RuntimeError(f"File {tableau_css} cannot be found")
-    google.colab.output._publish.css(open(tableau_css).read())
-    return IPython.display.HTML(filename=filename) 

@@ -2,6 +2,7 @@ import subprocess
 import os
 from os import path as op
 import re
+from sklearn.metrics import confusion_matrix, accuracy_score, ConfusionMatrixDisplay
 
 def taged2offsets(tag, s):
     """ Takes a sentence that includes words marked with <tag></tag>
@@ -24,6 +25,25 @@ def taged2offsets(tag, s):
     # now we are actually removing tags from teh original tagged sentence 
     cleaned_s = re.sub(f"</?{tag}>", "", s)
     return cleaned_s, offsets
+
+
+def evaluate_contextual_lex_rel(pred, data, draw=False):
+    '''Compare predictions to gold standard'''
+    mapping = {'equivalence': 'equi', 'other-related': 'othr', 
+               'reverse_entailment':'r-ent', 'alternation':'alter', 
+               'independent':'ind', 'forward_entailment':'f-ent'}
+    gold = [ mapping[d['r']] for d in data ] # gold relations
+    pred = [ mapping[p] for p in pred ]  
+    if len(pred) != len(gold):
+        raise RuntimeError(f'Length of predictions({len(pred)}) and gold relations({len(gold)}) do not match')
+    labels = sorted(set(gold))
+    acc = accuracy_score(gold, pred)
+    if draw == True:
+        cm = confusion_matrix(gold, pred, labels=labels)
+        m = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=labels)
+        m.plot()
+    return acc
+
 
 def run_cmd(cmd, v=False):
     """ run cmd and print stdout lines while the command is running if v is True.

@@ -1,6 +1,29 @@
 import subprocess
 import os
 from os import path as op
+import re
+
+def taged2offsets(tag, s):
+    """ Takes a sentence that includes words marked with <tag></tag>
+        and returns a tag-free sentence along with character offsets
+        of the marked words, so that it is still recoverable which words
+        were tagged in the original input. 
+    """
+    offsets = []
+    tags_length = 5 + 2*len(tag) # 5 because of length of "<></>""
+    removed_tags_length = 0 # no tags are removed yet
+    for r in re.finditer(f"<{tag}>(.+?)</{tag}>", s):
+        # when tags are removed, the end of the target word additionally 
+        # moves front with the number of positions equal to removed tag's length
+        # but at the same time, all following offsets should move with positions
+        # equal to scanned tags  
+        start = r.start() - removed_tags_length
+        end = r.end() - tags_length - removed_tags_length
+        offsets.append((start, end))
+        removed_tags_length += tags_length
+    # now we are actually removing tags from teh original tagged sentence 
+    cleaned_s = re.sub(f"</?{tag}>", "", s)
+    return cleaned_s, offsets
 
 def run_cmd(cmd, v=False):
     """ run cmd and print stdout lines while the command is running if v is True.

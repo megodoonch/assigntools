@@ -41,3 +41,12 @@ def make_vars_consistent(prop_maps: List[Tuple[str, Dict[str,str]]],
             props.append(prop)
             mapping[qi] = sent
     return props, mapping    
+
+
+
+#########################################################
+def tableau_equiv(p: str, q: str) -> bool:
+    """
+    Based on an NLTK tableau, check whether two formulas are equivalent
+    """
+    return tableau_prove(f"({p}) <-> ({q})", [])

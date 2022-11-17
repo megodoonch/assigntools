@@ -6,6 +6,8 @@ Utility functions used for Logic & Language course at Utrecht University
 contact: Lasha.Abzianidze@uu.nl
 """
 
+from typing import List
+import nltk
 
 def tableau_prove(conclusion: str, premises: List[str] = [], verbose: bool = False) -> bool:
     """ 

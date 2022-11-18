@@ -32,15 +32,15 @@ def make_vars_consistent(prop_maps: List[Tuple[str, Dict[str,str]]],
     It renames all propositional letters in the formulas and makes sure that 
     the mapping from letter to sentences is one to one.
     """
-    all_sents = [ v for (_, m) in prop_maps for k, v in m.items() ]
+    all_sents = set([ v for (_, m) in prop_maps for k, v in m.items() ])
     sent2index = { s: i for i, s in enumerate(sorted(all_sents), start=1) }
     mapping, props = dict(), []
     for prop, m in prop_maps:
         for pi, sent in m.items():
             qi = f"{prop_letter}{sent2index[sent]}"
             prop = re.sub(fr'\b{pi}\b', qi, prop)
-            props.append(prop)
-            mapping[qi] = sent
+        props.append(prop)
+        mapping[qi] = sent
     return props, mapping    
 
 

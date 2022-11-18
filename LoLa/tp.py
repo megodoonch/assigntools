@@ -51,3 +51,21 @@ def tableau_equiv(p: str, q: str) -> bool:
     Based on an NLTK tableau, check whether two formulas are equivalent
     """
     return tableau_prove(f"({p}) <-> ({q})", [])
+
+
+
+#########################################################
+def prop_entail(premises: List[str], conclusion: str, verbose: bool = False) -> bool:
+    """
+    Given a conclusion sentence and a (possibly empty) set of premises (in natural language),
+    Detect whether the premises entail the conclusion, i.e., the conclusion 
+    is uninformative wrt the premises. This is done via translation into PL.
+    """
+    sents = premises + [conclusion]
+    prop_maps = [ sent2prop(s) for s in sents ]
+    props, mapping = make_vars_consistent(prop_maps)
+    if verbose:
+        print(f"{props[:-1]} =?=> {props[-1]}")
+        print(mapping)
+    return tableau_prove(props[-1], premises=props[:-1], verbose=verbose)
+

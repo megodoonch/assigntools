@@ -55,7 +55,7 @@ def tableau_equiv(p: str, q: str) -> bool:
 
 
 #########################################################
-def prop_entail(premises: List[str], conclusion: str, verbose: bool = False) -> bool:
+def prop_entail(sent2prop, premises: List[str], conclusion: str, verbose: bool = False) -> bool:
     """
     Given a conclusion sentence and a (possibly empty) set of premises (in natural language),
     Detect whether the premises entail the conclusion, i.e., the conclusion 

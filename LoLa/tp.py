@@ -8,6 +8,7 @@ contact: Lasha.Abzianidze@uu.nl
 
 from typing import List, Tuple, Dict
 import nltk
+import re
 
 #########################################################
 def tableau_prove(conclusion: str, premises: List[str] = [], verbose: bool = False) -> bool:

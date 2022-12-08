@@ -5,13 +5,13 @@ from tqdm import tqdm
 
 ########################################################################
 def snli_jsonl2dict(snli_dir, clean_labels=True):
-    """"
+    """
     Reads jsonl files of snli parts and returns
     snli dict that contains problem level info: {part: {prob_id: Problem info}}
     sen2anno dict that contains sentence annotations: {sen:annotation dict}
     It is efficient to separate problem- and sentence-level info as
     many sentences reoccur in several problems.
-    """"
+    """
     # Find .jsonl files corresponding to data parts
     PARTS = [ f[9:-6] for f in os.listdir(snli_dir) if re.match('.+_(train|dev|test).jsonl', f) ]
     if not PARTS:

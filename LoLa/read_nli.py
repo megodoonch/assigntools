@@ -9,6 +9,8 @@ from collections import Counter, defaultdict
 #                       lt:labeling_type, e.g., ECN-numbers}
 #
 def snli2dict(snli_dir, clean_labels=True):
+    SPLIT = 'train dev test'.split()
+    LABELS = 'entailment contradiction neutral'.split()
     snli = defaultdict(list)
     sen2pid = defaultdict(set)
     cleaned = 0

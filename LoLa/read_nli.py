@@ -43,7 +43,7 @@ def snli_jsonl2dict(snli_dir, clean_labels=True):
                 snli[s][prob['pid']] = prob
                 # update sentences annotations
                 sen2anno = update_sen2anno(sen2anno, prob['p'], p_anno, (s, prob['pid'], 'p'))
-                sen2anno = update_sen2anno(sen2anno, prob['h'], p_anno, (s, prob['pid'], 'h'))
+                sen2anno = update_sen2anno(sen2anno, prob['h'], h_anno, (s, prob['pid'], 'h'))
         print(f"{len(snli[s])} problems read")
         print(f"{len(weird_lab['pids'])} problems have a wrong annotator label")
     if weird_lab['cnt']:  

@@ -4,7 +4,7 @@ from collections import Counter, defaultdict
 from tqdm import tqdm
 
 ########################################################################
-def snli_jsonl2dict(snli_dir, clean_labels=True):
+def snli_jsonl2dict(snli_dir, clean_labels=True, gold_labels=['entailment', 'neutral', 'contradiction']):
     """
     Reads jsonl files of snli parts and returns
     snli dict that contains problem level info: {part: {prob_id: Problem info}}
@@ -19,11 +19,10 @@ def snli_jsonl2dict(snli_dir, clean_labels=True):
     else:
         print(f"Found .json files for {PARTS} parts")
     # Initializing values
-    LABELS = 'entailment neutral contradiction'.split()
     snli = defaultdict(dict)
     sen2anno = defaultdict(dict) # maps sentence strings to its annotations 
     cleaned = 0
-    label_set = set(LABELS)
+    label_set = set(gold_labels)
     # Reading part files one by one
     for s in PARTS:
         weird_lab= {'cnt': Counter(), 'pids': []} # record problems with weird labels if any
@@ -31,6 +30,8 @@ def snli_jsonl2dict(snli_dir, clean_labels=True):
         with open(op.join(snli_dir, f'snli_1.0_{s}.jsonl')) as F:
             for line in tqdm(F):
                 prob = json.loads(line)
+                # if problem's gold label is not in predefined gold labels, ignore
+                if prob['gold_label'] not in label_set: continue
                 # test if the problem has weird labels
                 weird_labs = set(prob['annotator_labels']) - label_set
                 if weird_labs:

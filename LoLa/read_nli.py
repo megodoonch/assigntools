@@ -40,7 +40,7 @@ def snli_jsonl2dict(snli_dir, clean_labels=True, gold_labels=['entailment', 'neu
                 if clean_labels and weird_labs: 
                     continue # ignore problems with weird labels
                 # read a problem in a dict
-                prob, p_anno, h_anno = json_prob2dict(prob, labels=LABELS)
+                prob, p_anno, h_anno = json_prob2dict(prob, labels=gold_labels)
                 snli[s][prob['pid']] = prob
                 # update sentences annotations
                 sen2anno = update_sen2anno(sen2anno, prob['p'], p_anno, (s, prob['pid'], 'p'))
@@ -68,7 +68,7 @@ def update_sen2anno(sen2anno, sen, sen_anno, part_id_ph):
 
 
 ########################################################################
-def json_prob2dict(prob, labels='entailment neutral contradiction'.split()):
+def json_prob2dict(prob, labels=['entailment', 'neutral', 'contradiction']):
     """
     Reprocess a prob dict and create a more informative dictionary 
     that records easily accessible info for an NLI problems.

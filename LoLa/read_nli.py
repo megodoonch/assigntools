@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf8 -*-
+
 import re, json, os
 from os import path as op
 from collections import Counter, defaultdict

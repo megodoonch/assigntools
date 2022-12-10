@@ -20,6 +20,7 @@ def spacy_sen_context(spacy_nlp, sen_context_dict, disable_components=[], n=0):
     n - does cut off
     disable_components - a list of spacy pipeline components that will be disabled during processing\
     Returns sen->anno dict where anno has an additional key 'spacy' with value of spacy Doc
+    Note that the function modifies sen_context_dict
     """
     if not n: n = len(sen_context_dict)
     doc_sen_anno = [ (tokenized2Doc(s, a['tok'], spacy_nlp), (s, a)) for s, a in itertools.islice(sen_context_dict.items(), n) ]

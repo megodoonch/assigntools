@@ -112,3 +112,21 @@ def read_sentence_anno(tree, btree):
     # check that the number of tokens coincides with the number of pos tags
     assert len(anno['pos']) == len(anno['tok']), f"{i}: len({anno['pos']}) =/= len({anno['tok']})"
     return anno
+
+
+########################################################################
+def sen2anno_from_nli_problems(nli_dict, sen2anno):
+    """
+    sen2anno - dictionary of sentence->annotation mappings.
+    nli_dict - problem_id->nli_problem, the latter being a dict.
+    It is assumed that all sentences in nli_dict are included in sen2anno. 
+    Return a new shrinked version of sen2anno that covers sentences in nli_dict
+    """
+    s2a = dict()
+    for pid, prob in nli_dict.items():
+        for ph in "ph":
+            sen = prob[ph]
+            s2a[sen] = copy.deepcopy(sen2anno[sen])
+    return s2a
+    
+    

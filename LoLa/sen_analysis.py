@@ -3,7 +3,7 @@
 
 import spacy
 
-tokenized2Doc(raw, tokens, spacy_pipeline):
+def tokenized2Doc(raw, tokens, spacy_pipeline):
     """
     Takes raw text and its tokenized version and returns spaCy's Doc object 
     """

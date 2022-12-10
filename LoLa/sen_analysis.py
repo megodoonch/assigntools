@@ -18,7 +18,7 @@ def spacy_sen_context(spacy_nlp, sen_context_dict, disable_components=[], n=0):
     Takes spacy_nlp pipeline and processes sentences in sen_context_dict
     where the latter is {sen->context}, context carrying additional info about sentences.
     n - does cut off
-    disable_components - a list of spacy pipeline components that will be disabled during processing\
+    disable_components - a list of spacy pipeline components that will be disabled during processing.
     Returns sen->anno dict where anno has an additional key 'spacy' with value of spacy Doc
     Note that the function modifies sen_context_dict
     """
@@ -30,6 +30,17 @@ def spacy_sen_context(spacy_nlp, sen_context_dict, disable_components=[], n=0):
             sen_anno[sen] = anno
             sen_anno[sen]['spacy'] = doc
     return sen_anno
+
+
+def spacy_process_sen2tok(spacy_nlp, sen2tok, disable_components=[]):
+    """
+    Takes spacy_nlp pipeline and processes sentences in sen2tok {sen->tok list} while adopting provided tokenization.
+    disable_components - a list of spacy pipeline components that will be disabled during processing.
+    Returns sen->Doc dict where Doc contains spacy analysis of sen
+    """
+    doc_sen = [ (tokenized2Doc(sen, tok, spacy_nlp), sen) for sen, tok in sen2tok.items() ]
+    with spacy_nlp.select_pipes(disable=disable_components):
+        return { sen: doc for doc, sen in tqdm(spacy_nlp.pipe(doc_sen, as_tuples=True)) }
 
 
 def display_doc_dep(doc, d=150, compact=True, jupyter=True):

@@ -29,3 +29,13 @@ def spacy_sen_context(spacy_nlp, sen_context_dict, disable_components=[], n=0):
             sen_anno[sen] = anno
             sen_anno[sen]['spacy'] = doc
     return sen_anno
+
+
+def display_doc_dep(doc, d=150, compact=True, jupyter=True):
+    """ A shortcut function for displaying spaCy dependencies.
+        It uses compact representation by default.
+    """
+    spacy.displacy.render(doc, style='dep', jupyter=jupyter, \
+                          options={'distance':d, 'fine_grained':True, 'compact':compact})
+    
+    

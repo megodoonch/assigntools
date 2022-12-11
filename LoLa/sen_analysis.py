@@ -5,7 +5,7 @@ import spacy
 import itertools
 from tqdm import tqdm
 
-def tokenized2Doc(raw, tokens, spacy_pipeline):
+def tokenized2Doc(spacy_pipeline, raw, tokens):
     """
     Takes raw text and its tokenized version and returns spaCy's Doc object 
     """
@@ -38,7 +38,7 @@ def spacy_process_sen2tok(spacy_nlp, sen2tok, disable_components=[]):
     disable_components - a list of spacy pipeline components that will be disabled during processing.
     Returns sen->Doc dict where Doc contains spacy analysis of sen
     """
-    doc_sen = [ (tokenized2Doc(sen, tok, spacy_nlp), sen) for sen, tok in sen2tok.items() ]
+    doc_sen = [ (tokenized2Doc(spacy_nlp, sen, tok), sen) for sen, tok in sen2tok.items() ]
     with spacy_nlp.select_pipes(disable=disable_components):
         return { sen: doc for doc, sen in tqdm(spacy_nlp.pipe(doc_sen, as_tuples=True)) }
 

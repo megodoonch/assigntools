@@ -5,6 +5,7 @@ import re, json, os
 from os import path as op
 from collections import Counter, defaultdict
 from tqdm import tqdm
+import copy
 
 ########################################################################
 def snli_jsonl2dict(snli_dir, clean_labels=True, gold_labels=['entailment', 'neutral', 'contradiction']):

@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*-
 
 import numpy as np
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+# from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 import typing
 
@@ -20,6 +20,7 @@ def get_gpu_info():
     return device
 
 def load_tok_model(hub_name):
+    from transformers import AutoTokenizer, AutoModelForSequenceClassification
     tokenizer = AutoTokenizer.from_pretrained(hub_name, use_fast=True)
     model = AutoModelForSequenceClassification.from_pretrained(hub_name)
     return tokenizer, model

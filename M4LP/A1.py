@@ -1,6 +1,7 @@
 import pickle
 import bz2, gzip, lzma
 import spacy
+import requests, zipfile, io
 from types import ModuleType
 
 def read_pickle(path, method=None):
@@ -43,3 +44,15 @@ def flatten_list(l):
     if not isinstance(l, list):
         return [l]
     return [ a for e in l for a in flatten_list(e) ]
+
+def download_extract_zip(url):
+    """ Download a file from url and extract its content in the current directory
+        Return filenames of the extracted files  
+    """
+    #<ANSWER>
+    ### answer can be found with googling:
+    ### https://stackoverflow.com/questions/9419162/download-returned-zip-file-from-url
+    r = requests.get(url) 
+    z = zipfile.ZipFile(io.BytesIO(r.content))
+    z.extractall()
+    return z.namelist()

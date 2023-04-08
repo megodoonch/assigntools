@@ -1,6 +1,6 @@
 import pickle
 import bz2, gzip, lzma
-from spacy import displacy
+import spacy
 from types import ModuleType
 
 def read_pickle(path, method=None):
@@ -34,7 +34,7 @@ def display_doc_dep(doc, d=150, compact=True):
     """ A shortcut function for displaying spaCy dependencies.
         It uses compact representation by default.
     """
-    displacy.render(doc, style='dep', jupyter=True, \
+    spacy.displacy.render(doc, style='dep', jupyter=True, \
                     options={'distance':d, 'fine_grained':True, 'compact':compact})
 
 def flatten_list(l):

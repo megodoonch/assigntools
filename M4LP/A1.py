@@ -49,9 +49,6 @@ def download_extract_zip(url):
     """ Download a file from url and extract its content in the current directory
         Return filenames of the extracted files  
     """
-    #<ANSWER>
-    ### answer can be found with googling:
-    ### https://stackoverflow.com/questions/9419162/download-returned-zip-file-from-url
     r = requests.get(url) 
     z = zipfile.ZipFile(io.BytesIO(r.content))
     z.extractall()

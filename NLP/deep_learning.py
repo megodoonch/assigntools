@@ -6,6 +6,8 @@ def transformer_word2convec(model, tokenizer, word_list_batch, v=False, device=t
     """ Uses tokenizer and model to assign vectors to words in a batch of tokenized text.
         If a word is represented by several tokens, then the vectors of the tokens are collated with mean (by default).
         @layer indicates the layer from which vectors are extracted.
+        return
+            List[List[Dict{"word"->word_token, "tokens"->List[tokens], "pt"->pytorch tensor}]]
     """
     model.config.output_hidden_states = True
     if device: model.to(device)

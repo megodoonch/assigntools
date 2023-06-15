@@ -49,4 +49,4 @@ def transformer_word2convec(model, tokenizer, word_list_batch, v=False, device=t
                 d = { 'word': word, 'tokens': word_tokens, 'pt': word_vector.cpu() }
                 seq_vectorized.append(d)
             vectorized.append(seq_vectorized)
-    return vectorized, hidden_states, tokenized
+    return vectorized

@@ -23,6 +23,20 @@ def tableau_prove(conclusion: str, premises: List[str] = [], verbose: bool = Fal
     return nltk.TableauProver().prove(c, ps, verbose=verbose)
 
 #########################################################
+def prover9_prove(path: str, conclusion: str, premises: List[str] = []) -> bool:
+    """
+    Given a conclusion and a list of premises, 
+    tries to prove whether the premises entail the conclusion.
+    Returns a boolean value indicating whether the proof was found
+    """
+    str2exp = nltk.sem.Expression.fromstring
+    c = str2exp(conclusion)
+    ps = [ str2exp(p) for p in premises ]
+    prover9 = nltk.Prover9()
+    if path: prover9.config_prover9(path)
+    return prover9.prove(c, ps)
+
+#########################################################
 def make_vars_consistent(prop_maps: List[Tuple[str, Dict[str,str]]], 
                          prop_letter: str = 'Q') \
     -> Tuple[List[str], Dict[str,str]]:

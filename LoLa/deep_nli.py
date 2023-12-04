@@ -46,6 +46,9 @@ def predict_nli(tokenizer, model, nli_prob, device=None):
     return probs2prediction(probs, model.config.id2label)
 
 def batch_predict_nli(tokenizer, model, nli_list, batch_size=32, device=None):
+    """
+    TODO: add doc string and use tqdm
+    """
     start, predictions = 1, []
     batch_probs = nli_list[(start-1)*batch_size : start*batch_size]
     while batch_probs:

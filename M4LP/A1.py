@@ -36,7 +36,7 @@ def display_doc_dep(doc, d=150, compact=True):
         It uses compact representation by default.
     """
     spacy.displacy.render(doc, style='dep', jupyter=True, \
-                    options={'distance':d, 'fine_grained':True, 'compact':compact})
+                    options={'distance':d, 'fine_grained':True, 'compact':compact, 'collapse_punct':False})
 
 def flatten_list(l):
     """ A recursive function that flatterns a list of lists with unbounded depth.

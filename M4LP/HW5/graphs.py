@@ -12,7 +12,6 @@ from copy import deepcopy
 from typing import Set, Iterable
 import penman
 from .mtool.smatch import get_amr_match, compute_f
-from algebra import AlgebraError
 
 logging.basicConfig(stream=sys.stdout, level=logging.WARNING, format='%(levelname)s (%(name)s) - %(message)s')
 logger = logging.getLogger(__name__)

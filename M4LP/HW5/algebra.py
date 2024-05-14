@@ -10,7 +10,7 @@ from typing import Any
 
 import nltk
 
-from trees import Tree
+from .trees import Tree
 
 logger = logging.getLogger(__name__)
 # logger.setLevel(logging.DEBUG)

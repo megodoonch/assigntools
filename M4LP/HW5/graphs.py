@@ -128,8 +128,9 @@ class SGraph:
         """
         return self.node_labels.get(n, "")
 
-    def replace_node(self, old_node: int, new_node: int):
+    def _replace_node(self, old_node: int, new_node: int):
         """
+        Private function, not meant for use outside of self.__add__.
         rename a node in place everywhere it appears.
         @param old_node: int.
         @param new_node: int.
@@ -186,12 +187,12 @@ class SGraph:
         # rename all nodes in other
         new_node = max(self.nodes.union(other.nodes)) + 1  # avoid all possible conflicts of node names
         for node in other.nodes:
-            new_other.replace_node(node, new_node)
+            new_other._replace_node(node, new_node)
             new_node += 1
         # if self and other share any sources, make them the same in other as they are in self.
         for source in self.sources:
             if source in other.sources:
-                new_other.replace_node(new_other.sources[source], self.sources[source])
+                new_other._replace_node(new_other.sources[source], self.sources[source])
 
         # update copy of self to include everything in other
         new_self.nodes = self.nodes.union(new_other.nodes)
@@ -207,7 +208,7 @@ class SGraph:
 
     def forget(self, source: str):
         """
-        remove source (keep node)
+        HR algebra operation: remove source (keep node)
         @param source: str
         """
         if source in self.sources:
@@ -217,7 +218,7 @@ class SGraph:
 
     def rename(self, old_source: str, new_source: str):
         """
-        change source
+        HR algebra operation: change source
         @param old_source: str: the source to change
         @param new_source: str: the source to change to
         """

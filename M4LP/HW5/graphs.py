@@ -1,6 +1,6 @@
 """
-Defines S-graphs for the HR algebra a la Courcelle, B. (1993). Graph grammars, monadic second-order logic and the theory of graph minors. In
-N. Robertson and P. Seymour (Eds.), Graph Structure Theory, pp. 565—590. AMS.
+Defines S-graphs for the HR algebra a la Courcelle, B. (1993). Graph grammars, monadic second-order logic and the theory
+ of graph minors. In N. Robertson and P. Seymour (Eds.), Graph Structure Theory, pp. 565—590. AMS.
 
 @author: Meaghan Fowlie
 """
@@ -200,7 +200,7 @@ class SGraph:
                 new_self.edges[origin] += new_other.edges[origin]
             else:
                 new_self.edges[origin] = new_other.edges[origin]
-        # new_self.edges.update(new_other.edges)
+
         new_self.sources.update(new_other.sources)
         new_self.node_labels.update(new_other.node_labels)
         return new_self
@@ -226,19 +226,6 @@ class SGraph:
         if old_source in self.sources:
             node = self.sources.pop(old_source)
             self.sources[new_source] = node
-
-    def add_source(self, node, source):
-        """
-        add source to node.
-        @param source: str: the source to assign to the node.
-        @param node: the node to be given the source.
-        """
-        if source in self.sources:
-            if self.sources[source] == node:
-                logger.warning(f"{node} already has source {source}")
-            else:
-                raise GraphError(f"{source} is already present in the graph")
-        self.sources[source] = node
 
     def print_parameters(self):
         """

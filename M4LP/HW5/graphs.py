@@ -104,6 +104,15 @@ class SGraph:
                 ret += f"\t {n} {label} {target}\n"
         return ret
 
+    def print_as_init(self):
+        string_to_print = f"SGraph("
+        string_to_print += f"rt={self.root}, "
+        string_to_print += f"nodes={self.nodes}, "
+        string_to_print += f"node_labels={self.node_labels}, "
+        string_to_print += f"sources:\t{self.sources}\n"
+        string_to_print += f"edges={self.edges})"
+        print(string_to_print)
+
     def __eq__(self, other):
         # uses Smatch to check equality
         if not isinstance(other, SGraph):

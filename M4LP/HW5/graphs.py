@@ -105,6 +105,9 @@ class SGraph:
         return ret
 
     def print_as_init(self):
+        """
+        prints the graph as it would look if initialising
+        """
         string_to_print = f"SGraph("
         string_to_print += f"rt={self.root}, "
         string_to_print += f"nodes={self.nodes}, "

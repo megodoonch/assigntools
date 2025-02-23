@@ -11,6 +11,8 @@ import sys
 from copy import deepcopy
 from typing import Set, Iterable
 import penman
+
+from .algebra import AlgebraError
 from .mtool.smatch import get_amr_match, compute_f
 
 logging.basicConfig(stream=sys.stdout, level=logging.WARNING, format='%(levelname)s (%(name)s) - %(message)s')
@@ -202,6 +204,9 @@ class SGraph:
             else:
                 new_self.edges[origin] = new_other.edges[origin]
 
+        for source in new_other.sources:
+            if source in new_self.sources and new_self.sources[source] in new_self.node_labels and new_other.sources[source] in new_other.node_labels:
+                raise AlgebraError(f"source {source} already has a label")
         new_self.sources.update(new_other.sources)
         new_self.node_labels.update(new_other.node_labels)
         return new_self

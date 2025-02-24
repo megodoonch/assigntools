@@ -93,8 +93,7 @@ class SGraph:
         return repr(self)
 
     def __repr__(self):
-        ret = f""
-        ret += f"rt:\t\t\t{self.root}\n"
+        ret = f"rt:\t\t{self.root}\n"
         ret += f"nodes:\t\t{self.nodes}\n"
         ret += f"labels:\t\t{self.node_labels}\n"
         ret += f"sources:\t{self.sources}\n"

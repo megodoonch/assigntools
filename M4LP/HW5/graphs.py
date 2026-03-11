@@ -106,7 +106,7 @@ class SGraph:
     def __eq__(self, other):
         # uses Smatch to check equality
         if not isinstance(other, SGraph):
-            raise NotImplementedError(f"Compared object is not as SGraph, but rather a {type(other}")
+            raise NotImplementedError(f"Compared object is not as SGraph, but rather a {type(other)}")
         else:
             try:
                 allowed_error = 0.000001

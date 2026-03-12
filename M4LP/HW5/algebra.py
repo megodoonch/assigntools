@@ -251,7 +251,7 @@ class AlgebraTerm(Tree):
 
         def _latex_forest(t):
             """
-            makes the tree, minus the \begin{forest} and \end{forest}
+            makes the tree, minus the \\begin{forest} and \\end{forest}
             @param t:
             @return:
             """

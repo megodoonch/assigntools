@@ -29,25 +29,25 @@ class GraphError(Exception):
 class Graph:
     """
     Attributes:
-        nodes: set of ints
-        edges: dict from nodes to lists of (target, edge label) or target if unlabeled
+        nodes: set
+        edges: dict from origin nodes to lists of (target node, edge label) or target if unlabeled
         node_labels: dict from node to label
-        root: int: specially marked node
+        root: specially marked node
     """
 
-    def __init__(self, nodes: Set[int] = None,
-                 edges: Dict[int: List[Tuple[int, str] or int]] or None = None,
-                 node_labels: Dict[int:str] or None = None,
-                 root: int or None = None):
+    def __init__(self, nodes: Set = None,
+                 edges: Dict or None = None,
+                 node_labels: Dict or None = None,
+                 root=None):
         """
         Initialise a Graph
         Args:
-            nodes: a set of ints; if None, default is an empty graph with no nodes.
-            edges: a dict from int to lists of (int, str) pairs. The key is the edge origin,
+            nodes: a set; if None, default is an empty graph with no nodes.
+            edges: a dict from nodes to lists of nodes or (node, str) pairs. The key is the edge origin,
                                                     and the value is the list of edges as (edge target, label) pairs
                                                     or just edge target if unlabeled.
-            node_labels: dict from int to str: the node labelling function.
-            root: int: the root node of the graph, default None.
+            node_labels: dict from node to str: the node labelling function, default None
+            root: the root node of the graph, default None.
         """
         # check the types of the inputs
         assert nodes is None or isinstance(nodes, Set), f"Nodes must be of type Set but is {type(nodes)}"
@@ -74,10 +74,10 @@ class Graph:
     def __repr__(self):
         ret = ""
         if self.root is not None:
-            ret += f"rt:\t\t{self.root}\n"
-        ret += f"nodes:\t\t{self.nodes}\n"
+            ret += f"rt:\t{self.root}\n"
+        ret += f"nodes:\t{self.nodes}\n"
         if self.node_labels:
-            ret += f"labels:\t\t{self.node_labels}\n"
+            ret += f"labels:\t{self.node_labels}\n"
         if self.edges:
             ret += f"edges:\n"
             for n in self.edges:
@@ -129,6 +129,10 @@ class Graph:
         return [edge if not isinstance(edge, tuple) else edge[0] for edge in self.edges[origin]]
                 
     def remove_node(self, node):
+        """
+        Remove a node and all of its associated edges and labels.
+        Modifies the graph in place.
+        """
         self.nodes.remove(node)
         if node in self.node_labels:
             del self.node_labels[node]
@@ -145,8 +149,8 @@ class Graph:
         """
         Adds two graphs together, keeping the root at the root of self, 
         and otherwise simply taking the union of the nodes, edges, and labels.
-        :param other: SGraph
-        :return: SGraph
+        :param other: Graph
+        :return: Graph
         """
         assert isinstance(other, type(self))
         new_labels = deepcopy(self.node_labels)
@@ -160,8 +164,6 @@ class Graph:
         for origin in other.edges:
             new_graph.add_edge(origin, deepcopy(other.edges[origin]))
         return new_graph
-        
-        
 
     def is_root(self, node):
         return node == self.root
@@ -174,8 +176,6 @@ class Graph:
         Returns: str
         """
         return self.node_labels.get(n, "")
-
-
 
     def print_parameters(self):
         """
@@ -295,9 +295,23 @@ class SGraph(Graph):
                 sources.append(source)
         return sources
 
+    @staticmethod
+    def from_graph(g: Graph, root_source: str or None = None):
+        """
+        Optionally add a root source to the root as well.
+        Static method: can be called without an instance of SGraph:
+        my_s_graph = SGraph(my_graph)
+        """
+        if root_source is not None and g.root is not None:
+            sources = {root_source: g.root}
+        else:
+            sources = None
+        
+        return SGraph(g.nodes, g.edges, g.node_labels, sources, g.root)
+
     def __repr__(self):
         ret = super().__repr__()
-        ret += f"sources:\t\t{self.sources}\n"
+        ret += f"sources:\t{self.sources}\n"
         return ret
 
     def _replace_node(self, old_node: int, new_node: int):

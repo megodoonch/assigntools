@@ -331,8 +331,8 @@ class Algebra:
         if zero is None:
             try:
                 self.empty_leaf_operation = AlgebraOp("[empty]", domain_type())
-            except:
-                logger.warning("No empty leaf operation possible")
+            except Exception as e:
+                logger.warning(f"No empty leaf operation possible: {e}")
                 self.empty_leaf_operation = None
         else:
             self.empty_leaf_operation = zero

@@ -2,6 +2,7 @@
 from vulcan.pickle_builder.pickle_builder import PickleBuilder
 from vulcan.data_handling.format_names import FORMAT_NAME_GRAPH, FORMAT_NAME_STRING, FORMAT_NAME_NLTK_TREE
 from .graphs import SGraph, Graph
+from .algebra import AlgebraTerm
 
 # provided functions for creating vulcan-readable pickles
 
